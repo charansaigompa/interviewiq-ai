@@ -1,4 +1,4 @@
-import React, { use } from "react";
+import React, { use, useEffect } from "react";
 import { motion, useDomEvent } from "motion/react";
 import {
   FaBriefcase,
@@ -82,7 +82,9 @@ const Setp1SetUp = ({ onStart }) => {
       setAnalyzing(false);
     }
   };
+          
 
+  
   return (
     <motion.div
       initial={{ opacity: 0 }}
