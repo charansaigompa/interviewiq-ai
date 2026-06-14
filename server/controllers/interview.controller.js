@@ -185,8 +185,13 @@ Make questions based on the candidate’s role, experience,interviewMode, projec
 
 export const submitAnswer=async(req,res)=>{
   try{
-    const{interviewId,questionIndex,answer,timeTake}=req.body 
-     const interview=await Interview.findeById(interviewId)
+    const{interviewId,questionIndex,answer,timeTaken}=req.body 
+     const interview=await Interview.findById(interviewId)
+     if(!interview){
+  return res.status(404).json({
+    message: "Interview not found"
+  })
+}
      const question=interview.questions[questionIndex]
      //if no answer 
      if(!answer){
@@ -203,6 +208,7 @@ export const submitAnswer=async(req,res)=>{
       question.feedback="Time limit exceeded.Answer not evaluated"
       question.answer=answer
       return res.json({feedback:question.feedback})
+     }
 
       const messages = [
       {
@@ -264,12 +270,12 @@ Answer: ${answer}
     question.confidence=parsed.confidence 
     question.communication=parsed.communication 
     question.correctness=parsed.correctness 
-    question.score=parsed.score 
+    question.score=parsed.finalScore 
     question.feedback=parsed.feedback   
     await interview.save() 
     return res.status(200).json({feedback:parsed.feedback})
       
-     }
+     
   }
   catch(error){
      return res.status(500).json({message:`failed to submit answer ${error}`})
@@ -291,7 +297,7 @@ export const finishInterview=async(req,res)=>{
     let totalCorrectness=0
 
 
-    interview.question.forEach((q)=>{
+    interview.questions.forEach((q)=>{
       totalScore+=q.score||0
       totalConfidence+=q.confidence||0
       totalCommunication+=q.communication||0
@@ -325,5 +331,57 @@ export const finishInterview=async(req,res)=>{
   }
   catch(error){
    return res.status(500).json({message:`failed to finish Interview ${error}`})
+  }
+}
+
+export const getMyInterviews=async(req,res)=>{
+  try{
+    const interviews=await Interview.find({userId:req.userId})
+    .sort({createdAt:-1})
+    .select("role experience mode finalScore status createdAt")
+
+    return res.status(200).json(interviews)
+  }
+  catch(error){
+    return res.status(500).json({message:`failed to find currentUser Interview ${error}`})
+  }
+}
+
+export const getInterviewReport=async(req,res)=>{
+  try{
+    const interview=await Interview.findById(req.params.id)
+    if(!interview){
+      return  res.status(404).json({message:"Interview not found"})
+    }
+
+      const totalQuestions=interview.questions.length 
+   
+    let totalConfidence=0
+    let totalCommunication=0
+    let totalCorrectness=0
+
+
+    interview.questions.forEach((q)=>{
+      
+      totalConfidence+=q.confidence||0
+      totalCommunication+=q.communication||0
+      totalCorrectness+=q.correctness||0
+    })
+    const avgConfidence=totalQuestions?totalConfidence/totalQuestions:0 
+    const avgCommunication=totalQuestions?totalCommunication/totalQuestions:0 
+    const avgCorrectness=totalQuestions?totalCorrectness/totalQuestions:0 
+     
+    return res.status(200).json({
+  finalScore:interview.finalScore,
+  confidence:Number(avgConfidence.toFixed(1)),
+  communication:Number(avgCommunication.toFixed(1)),
+  correctness:Number(avgCorrectness.toFixed(1)),
+  questionWiseScore:interview.questions
+    })
+
+    
+  }
+  catch(error){
+    return res.status(500).json({message:`failed to find currentUser Interview ${error}`})
   }
 }
