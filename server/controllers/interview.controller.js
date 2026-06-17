@@ -163,7 +163,7 @@ Make questions based on the candidate’s role, experience,interviewMode, projec
       questions:questionsArray.map((q,index)=>({
         question:q,
         difficulty:["easy","easy","medium","medium","hard"][index],
-        timeLimit:[60,60,90,90,120][index],
+        timeLimit:[300,300,300,300,360][index],
 
       }))
 

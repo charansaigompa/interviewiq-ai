@@ -285,11 +285,11 @@ const Step2Interview = ({interviewData,onFinish}) => {
       }
     },[])
 
-    useEffect(()=>{
-      if(!isIntroPhase && currentQuestion){
-        setTimeLeft(currentIndex.timeLimit||60)
-      }
-    },[currentIndex])
+    useEffect(() => {
+  if (!isIntroPhase && currentQuestion) {
+    setTimeLeft(currentQuestion.timeLimit || 300);
+  }
+}, [currentQuestion, isIntroPhase]);
   const videoSource=voiceGender==="male"?maleVideo:femaleVideo
   return (
     <div className='min-h-screen bg-linear-to-br from-emerald-50 via-white

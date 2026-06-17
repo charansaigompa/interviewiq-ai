@@ -11,6 +11,8 @@ import InterviewHistory from './pages/InterviewHistory'
 import Pricing from './pages/Pricing'
 import InterviewReport from './pages/InterviewReport'
 
+//"https://interviewiq-ai-fo4w.onrender.com"
+
 export const serverUrl="https://interviewiq-ai-fo4w.onrender.com"
 const App = () => {
   const dispatch=useDispatch()
