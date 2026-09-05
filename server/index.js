@@ -15,7 +15,7 @@ app.use(cors({
     origin:"https://interviewiq-ai-client-mpxf.onrender.com",
     credentials:true,
     
-}))      
+}));
 app.use(express.json())
 app.use(cookieParser())
 
