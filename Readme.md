@@ -130,24 +130,26 @@ Each category is scored from **0–10**, providing a more detailed evaluation th
                            │
                        REST APIs
                            │
-                           ↓
+                           ▼
                     ┌──────────────┐
-                    │   Express.js │
-                    │    Backend   │
+                    │  Express.js  │
+                    │   Backend    │
                     └──────┬───────┘
                            │
-          ┌────────────────┼────────────────┐
-          ↓                ↓                ↓
-     ┌─────────┐     ┌───────────┐    ┌──────────┐
-     │ MongoDB │     │ OpenRouter│    │ Firebase │
-     │         │     │  AI Model │    │   Auth   │
-     └─────────┘     └───────────┘    └──────────┘
+       ┌───────────────────┼───────────────────┬───────────────────┐
+       │                   │                   │                   │
+       ▼                   ▼                   ▼                   ▼
+┌──────────────┐    ┌──────────────┐    ┌──────────────┐    ┌──────────────┐
+│   MongoDB    │    │  OpenRouter  │    │Authentication│    │   Razorpay   │
+│   Database   │    │   AI Model   │    │              │    │   Payments   │
+└──────────────┘    └──────┬───────┘    └──────────────┘    └──────────────┘
                            │
-                           ↓
+                           ▼
                     ┌──────────────┐
-                    │   Razorpay   │
-                    │   Payments   │
+                    │   Interview  │
+                    │    Report    │
                     └──────────────┘
+                
 ```
 
 ---
