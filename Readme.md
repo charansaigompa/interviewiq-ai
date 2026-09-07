@@ -268,17 +268,6 @@ InterviewIQ implements several security measures:
 
 ---
 
-## 🔮 Future Improvements
-
-* Adaptive follow-up questions based on previous answers
-* Job-description-based interview generation
-* Company-specific interview preparation
-* More advanced interview analytics
-* Long-term performance tracking
-* Additional AI model support
-* Improved voice interaction
-
----
 
 ## 👨‍💻 Author
 
